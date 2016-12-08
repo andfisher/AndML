@@ -169,53 +169,44 @@
 				_ = _keys(i);
 
 				if (!_) continue;
-				
-				// @TODO
-				// Is this condition still needed?
-				if (false && typeof o[i] !== 'string' && o[i].length) {
+
+				_ = _merge(_, o[i]);
+
+				if (_[_tagNS()] === 'img' && _['@alt'] === undefined) {
+					_['@alt'] = '';
+				}
+
+				this._ml += '<' + _[_tagNS()] + _attr(_) + (_[_tagNS()].charAt(0) === '?' ? '?' : '') + '>';
+
+				if (_emptyObj(o[i])) {
+					// No output required.
+					
+				} else if (typeof o[i] !== 'string' && o[i].length) {
 					for (var n in o[i]) {
 						_parse.call(this, o[i][n]);
-					}
+					}						
+				} else if (typeof o[i] === 'string') {
+					
+					this._ml += o[i];
+					
 				} else {
 
-					_ = _merge(_, o[i]);
-
-					if (_[_tagNS()] === 'img' && _['@alt'] === undefined) {
-						_['@alt'] = '';
+					if (_[_textNS()]) {
+						this._ml += _[_textNS()];
 					}
 
-					this._ml += '<' + _[_tagNS()] + _attr(_) + (_[_tagNS()].charAt(0) === '?' ? '?' : '') + '>';
-
-					if (_emptyObj(o[i])) {
-						// No output required.
-						
-					} else if (typeof o[i] !== 'string' && o[i].length) {
-						for (var n in o[i]) {
-							_parse.call(this, o[i][n]);
-						}						
-					} else if (typeof o[i] === 'string') {
-						
-						this._ml += o[i];
-						
-					} else {
-
-						if (_[_textNS()]) {
-							this._ml += _[_textNS()];
-						}
-
-						_parse.call(this, _);
-					
+					_parse.call(this, _);
+				
+				}
+				
+				if (_isArray(_[_childrenNS()])) {
+					for (var n in _[_childrenNS()]) {
+						_parse.call(this, _[_childrenNS()][n]);
 					}
-					
-					if (_isArray(_[_childrenNS()])) {
-						for (var n in _[_childrenNS()]) {
-							_parse.call(this, _[_childrenNS()][n]);
-						}
-					}
-					
-					if (_voids.indexOf(_[_tagNS()]) < 0 && _[_tagNS()].charAt(0) !== '?') {
-						this._ml += '</' + _[_tagNS()] + '>';
-					}
+				}
+				
+				if (_voids.indexOf(_[_tagNS()]) < 0 && _[_tagNS()].charAt(0) !== '?') {
+					this._ml += '</' + _[_tagNS()] + '>';
 				}
 			}
 		}
