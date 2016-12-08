@@ -26,7 +26,7 @@
 
 	window.andML = (function() {
 	
-		var _version = '0.1.0';
+		var _version = '0.1.2';
 		
 		var _settings = {
 			supportSVG: false,
