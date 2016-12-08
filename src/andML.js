@@ -2,7 +2,7 @@
  * @desc andML. A JavaScript Object to HTML parser
  * @author Andrew Fisher
  * @copyright Copyright (c) 2016 Andrew Fisher (andfisher)
- * @version 0.0.1
+ * @version 0.1.3
  * @license The MIT License (MIT)
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
 
 	window.andML = (function() {
 	
-		var _version = '0.1.2';
+		var _version = '0.1.3';
 		
 		var _settings = {
 			supportSVG: false,
