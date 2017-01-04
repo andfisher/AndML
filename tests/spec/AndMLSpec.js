@@ -19,6 +19,18 @@ describe('AndML', function() {
 		andML.settings.supportSVG = false;
 		andML.settings.supportXML = false;
 	  });
+	  
+	  it('should allow its ml method to be passed around', function() {
+		var on = {
+			'article': {
+				'h1': 'Hello World',
+				'p': 'Lorem Ipsum dolor sit amet'
+			}
+		  };
+		var ml = '<article><h1>Hello World</h1><p>Lorem Ipsum dolor sit amet</p></article>'
+		var fn = andML.ml;
+		expect(fn(on)).toEqual(ml);  
+	  });
 
 	  it('should parse AMLON into correct markup', function() {
 		var on = {

@@ -2,7 +2,7 @@
  * @desc andML. A JavaScript Object to HTML parser
  * @author Andrew Fisher
  * @copyright Copyright (c) 2016 Andrew Fisher (andfisher)
- * @version 0.1.4
+ * @version 0.1.5
  * @license The MIT License (MIT)
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
 
 	window.andML = (function() {
 	
-		var _version = '0.1.4';
+		var _version = '0.1.5';
 		
 		var _settings = {
 			supportSVG: false,
@@ -214,30 +214,43 @@
 		var _reverse = function(ml) {
 			// @todo
 		}
+		
+		var instance;
+		
+		function getInstance(context) {
+			if (context instanceof andML === false) {
+				return instance;
+			}
+			return context;
+		}
 	
 		function andML() {
 			this._version = _version;
+			this.settings = _settings;
 			this._ml = '';
 			this._on = {};
 		}
 		
 		andML.prototype.on = function(ml) {
-			this._on = {};
-			_reverse.call(this, ml);
-			return this._on;
+			var _this = getInstance(this);
+			_this._on = {};
+			_reverse.call(_this, ml);
+			return _this._on;
 		};
-		andML.prototype.ml = function(on) {		
-			if (this.settings.supportSVG) {
+		andML.prototype.ml = function(on) {
+			var _this = getInstance(this);
+			if (_this.settings.supportSVG) {
 				_tags = _extend(_svg);
 			};
-			this._ml = '';
-			_parse.call(this, on);
-			return this._ml;
+			_this._ml = '';
+			_parse.call(_this, on);
+			return _this._ml;
 		};
 		andML.prototype.version = _version;
 		andML.prototype.settings = _settings;
 		
-		return new andML();
+		instance = new andML();
+		return instance;
 	})();
 	
 })();
